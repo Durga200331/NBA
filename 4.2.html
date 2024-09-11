@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Rate Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .criteria {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            padding: 8px;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: royalblue;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            float: right;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: royalblue;
+        }
+
+        .output {
+            margin-top: 10px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .summary {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .summary p {
+            margin: 5px 0;
+        }
+
+        .summary hr {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Success Rate Calculation</h1>
+    <div class="container">
+        <div class="criteria">
+            <h2>4.2.1. Success rate without backlogs</h2>
+            <p>Without Backlog means no compartment or failures in any semester/year of study</p>
+            <label for="studentsGraduated">Number of students who graduated without backlog:</label>
+            <input type="number" id="studentsGraduated" required>
+            <br><br>
+            <label for="studentsAdmitted">Number of students admitted in the first year:</label>
+            <input type="number" id="studentsAdmitted" required>
+            <br><br>
+            <label for="averageSI">Average Success Index (SI) for past three batches:</label>
+            <input type="number" id="averageSI" required>
+            <br><br>
+            <button onclick="calculateSuccessRateWithoutBacklogs()">Calculate</button>
+            <div class="output">
+                <p id="successRateWithoutBacklogs"></p>
+            </div>
+        </div>
+
+        <div class="criteria">
+            <h2>4.2.2. Success rate in stipulated period</h2>
+            <p>Total of with backlog + without backlog</p>
+            <label for="studentsGraduatedPeriod">Number of students who graduated in the stipulated period:</label>
+            <input type="number" id="studentsGraduatedPeriod" required>
+            <br><br>
+            <label for="studentsAdmittedPeriod">Number of students admitted in the first year:</label>
+            <input type="number" id="studentsAdmittedPeriod" required>
+            <br><br>
+            <label for="averageSIPeriod">Average Success Index (SI) for past three batches:</label>
+            <input type="number" id="averageSIPeriod" required>
+            <br><br>
+            <button onclick="calculateSuccessRateInPeriod()">Calculate</button>
+            <div class="output">
+                <p id="successRateInPeriod"></p>
+            </div>
+        </div>
+
+        <div class="criteria">
+            <h2 class="summary">4.2. Criteria Marks Summary</h2>
+            <div class="output">
+                <p id="marksFrom4_1"></p>
+                <p><strong>4.2.1. Success rate without backlogs:</strong> <span id="marksWithoutBacklogs">-</span></p>
+                <p><strong>4.2.2. Success rate in stipulated period:</strong> <span id="marksInPeriod">-</span></p>
+                <hr>
+                <p><strong>Total Criteria Marks:</strong> <span id="totalCriteriaMarks">-</span></p>
+            </div>
+        </div>
+    </div>
+
+    <a href="4.3.html" class="btn">Next</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Retrieve marks from 4.1.html if available
+            const marks_4_1 = localStorage.getItem('marks_4_1');
+            if (marks_4_1) {
+                document.getElementById('marksFrom4_1').innerText = `Marks from 4.1: ${marks_4_1}`;
+            }
+
+            // Calculate and display total criteria marks
+            updateTotalCriteriaMarks();
+        });
+
+        function calculateSuccessRateWithoutBacklogs() {
+            const studentsGraduated = parseInt(document.getElementById('studentsGraduated').value);
+            const studentsAdmitted = parseInt(document.getElementById('studentsAdmitted').value);
+            const averageSI = parseFloat(document.getElementById('averageSI').value);
+
+            if (isNaN(studentsGraduated) || isNaN(studentsAdmitted) || isNaN(averageSI)) {
+                alert("Please enter valid numbers for calculation.");
+                return;
+            }
+
+            const successRate = 25 * averageSI * (studentsGraduated / studentsAdmitted);
+            document.getElementById('successRateWithoutBacklogs').innerText = `Success rate without backlogs: ${successRate.toFixed(2)}`;
+            document.getElementById('marksWithoutBacklogs').innerText = successRate.toFixed(2);
+
+            // Save the result for totalmarks.html
+            localStorage.setItem('successRateWithoutBacklogs', successRate.toFixed(2));
+
+            updateTotalCriteriaMarks();
+        }
+
+        function calculateSuccessRateInPeriod() {
+            const studentsGraduatedPeriod = parseInt(document.getElementById('studentsGraduatedPeriod').value);
+            const studentsAdmittedPeriod = parseInt(document.getElementById('studentsAdmittedPeriod').value);
+            const averageSIPeriod = parseFloat(document.getElementById('averageSIPeriod').value);
+
+            if (isNaN(studentsGraduatedPeriod) || isNaN(studentsAdmittedPeriod) || isNaN(averageSIPeriod)) {
+                alert("Please enter valid numbers for calculation.");
+                return;
+            }
+
+            const successRatePeriod = 15 * averageSIPeriod * (studentsGraduatedPeriod / studentsAdmittedPeriod);
+            document.getElementById('successRateInPeriod').innerText = `Success rate in stipulated period: ${successRatePeriod.toFixed(2)}`;
+            document.getElementById('marksInPeriod').innerText = successRatePeriod.toFixed(2);
+
+            // Save the result for totalmarks.html
+            localStorage.setItem('successRateInPeriod', successRatePeriod.toFixed(2));
+
+            updateTotalCriteriaMarks();
+        }
+
+        function updateTotalCriteriaMarks() {
+            const marksFrom4_1 = parseFloat(localStorage.getItem('marks_4_1')) || 0;
+            const marksWithoutBacklogs = parseFloat(document.getElementById('marksWithoutBacklogs').innerText) || 0;
+            const marksInPeriod = parseFloat(document.getElementById('marksInPeriod').innerText) || 0;
+            const totalMarks = marksFrom4_1 + marksWithoutBacklogs + marksInPeriod;
+
+            document.getElementById('totalCriteriaMarks').innerText = totalMarks.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>

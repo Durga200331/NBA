@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success Index Calculator</title>
+<script>
+    function calculateSuccessIndex() {
+        var graduatesWithoutBacklog = parseInt(document.getElementById('graduatesWithoutBacklog').value);
+        var studentsAdmittedFirstYear = parseInt(document.getElementById('studentsAdmittedFirstYear').value);
+        var studentsAdmittedSecondYear = parseInt(document.getElementById('studentsAdmittedSecondYear').value);
+        var separateDivisionStudents = parseInt(document.getElementById('separateDivisionStudents').value);
+
+        var totalAdmitted = studentsAdmittedFirstYear + studentsAdmittedSecondYear + separateDivisionStudents;
+
+        var successIndex = graduatesWithoutBacklog / totalAdmitted;
+
+        document.getElementById('successIndexResult').innerHTML = "Success Index: " + successIndex.toFixed(2);
+    }
+
+    function calculateAverageSuccessIndex() {
+        var successIndex1 = parseFloat(document.getElementById('successIndex1').value);
+        var successIndex2 = parseFloat(document.getElementById('successIndex2').value);
+        var successIndex3 = parseFloat(document.getElementById('successIndex3').value);
+
+        var averageSuccessIndex = (successIndex1 + successIndex2 + successIndex3) / 3;
+
+        document.getElementById('averageSuccessIndexResult').innerHTML = "Average Success Index: " + averageSuccessIndex.toFixed(2);
+    }
+</script>
+</head>
+<body>
+
+<h2>Success Index Calculator</h2>
+<form>
+    <label for="graduatesWithoutBacklog">Number of graduates without backlog:</label>
+    <input type="number" id="graduatesWithoutBacklog" name="graduatesWithoutBacklog" required><br><br>
+
+    <label for="studentsAdmittedFirstYear">Number of students admitted in the first year:</label>
+    <input type="number" id="studentsAdmittedFirstYear" name="studentsAdmittedFirstYear" required><br><br>
+
+    <label for="studentsAdmittedSecondYear">Number of students admitted in the second year:</label>
+    <input type="number" id="studentsAdmittedSecondYear" name="studentsAdmittedSecondYear" required><br><br>
+
+    <label for="separateDivisionStudents">Number of students admitted via separate division:</label>
+    <input type="number" id="separateDivisionStudents" name="separateDivisionStudents" required><br><br>
+
+    <button type="button" onclick="calculateSuccessIndex()">Calculate Success Index</button>
+</form>
+
+<div id="successIndexResult"></div>
+
+<br>
+
+<h2>Average Success Index Calculator</h2>
+<form>
+    <label for="successIndex1">Success Index for batch 1:</label>
+    <input type="number" id="successIndex1" name="successIndex1" step="0.01" required><br><br>
+
+    <label for="successIndex2">Success Index for batch 2:</label>
+    <input type="number" id="successIndex2" name="successIndex2" step="0.01" required><br><br>
+
+    <label for="successIndex3">Success Index for batch 3:</label>
+    <input type="number" id="successIndex3" name="successIndex3" step="0.01" required><br><br>
+
+    <button type="button" onclick="calculateAverageSuccessIndex()">Calculate Average Success Index</button>
+</form>
+
+<div id="averageSuccessIndexResult"></div>
+
+</body>
+</html>

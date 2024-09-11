@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Marks Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .criteria {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: royalblue;
+        }
+
+        .output {
+            margin-top: 10px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .summary {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .summary p {
+            margin: 5px 0;
+        }
+
+        .summary hr {
+            margin: 10px 0;
+        }
+
+        .btn-close {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            text-decoration: none;
+            float: right;
+        }
+
+        .btn-close:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Total Marks Calculation</h1>
+    <div class="container">
+        <div class="criteria">
+            <h2>4.1. Criteria Marks</h2>
+            <label for="marks4_1">Enter marks for 4.1:</label>
+            <input type="number" id="marks4_1" required>
+        </div>
+
+        <div class="criteria">
+            <h2>4.2. Criteria Marks</h2>
+            <label for="marks4_2">Enter marks for 4.2:</label>
+            <input type="number" id="marks4_2" required>
+        </div>
+
+        <div class="criteria">
+            <h2>4.3. Criteria Marks</h2>
+            <label for="marks4_3">Enter marks for 4.3:</label>
+            <input type="number" id="marks4_3" required>
+        </div>
+
+        <div class="criteria">
+            <h2>4.4. Criteria Marks</h2>
+            <label for="marks4_4">Enter marks for 4.4:</label>
+            <input type="number" id="marks4_4" required>
+        </div>
+
+        <div class="criteria">
+            <h2>4.5. Criteria Marks</h2>
+            <label for="marks4_5">Enter marks for 4.5:</label>
+            <input type="number" id="marks4_5" required>
+        </div>
+
+        <div class="criteria">
+            <h2>4.6. Criteria Marks</h2>
+            <label for="marks4_6">Enter marks for 4.6:</label>
+            <input type="number" id="marks4_6" required>
+        </div>
+
+        <button onclick="calculateTotalMarks()">Calculate Total Marks</button>
+        <a href="Accreditation.html" class="btn-close">Close</a>
+
+        <div class="output">
+            <div class="summary">
+                <h2>Total Criteria Marks</h2>
+                <p><strong>4.1. Criteria Marks:</strong> <span id="totalMarks4_1">-</span></p>
+                <p><strong>4.2. Criteria Marks:</strong> <span id="totalMarks4_2">-</span></p>
+                <p><strong>4.3. Criteria Marks:</strong> <span id="totalMarks4_3">-</span></p>
+                <p><strong>4.4. Criteria Marks:</strong> <span id="totalMarks4_4">-</span></p>
+                <p><strong>4.5. Criteria Marks:</strong> <span id="totalMarks4_5">-</span></p>
+                <p><strong>4.6. Criteria Marks:</strong> <span id="totalMarks4_6">-</span></p>
+                <hr>
+                <p><strong>Total Marks out of 150: </strong> <span id="totalMarks">-</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateTotalMarks() {
+            const marks4_1 = parseFloat(document.getElementById('marks4_1').value) || 0;
+            const marks4_2 = parseFloat(document.getElementById('marks4_2').value) || 0;
+            const marks4_3 = parseFloat(document.getElementById('marks4_3').value) || 0;
+            const marks4_4 = parseFloat(document.getElementById('marks4_4').value) || 0;
+            const marks4_5 = parseFloat(document.getElementById('marks4_5').value) || 0;
+            const marks4_6 = parseFloat(document.getElementById('marks4_6').value) || 0;
+
+            const totalMarks = marks4_1 + marks4_2 + marks4_3 + marks4_4 + marks4_5 + marks4_6;
+
+            document.getElementById('totalMarks4_1').innerText = marks4_1.toFixed(2);
+            document.getElementById('totalMarks4_2').innerText = marks4_2.toFixed(2);
+            document.getElementById('totalMarks4_3').innerText = marks4_3.toFixed(2);
+            document.getElementById('totalMarks4_4').innerText = marks4_4.toFixed(2);
+            document.getElementById('totalMarks4_5').innerText = marks4_5.toFixed(2);
+            document.getElementById('totalMarks4_6').innerText = marks4_6.toFixed(2);
+
+            document.getElementById('totalMarks').innerText = totalMarks.toFixed(2);
+
+            // Save total marks in localStorage for 4.3.html
+            localStorage.setItem('totalMarks_4_1_to_4_6', totalMarks.toFixed(2));
+        }
+    </script>
+</body>
+
+</html>

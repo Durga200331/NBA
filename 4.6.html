@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Activities Assessment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .input-group button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result label {
+            font-weight: bold;
+        }
+        .next-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .next-button button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Professional Activities Assessment</h1>
+
+        <!-- 4.6.1 Professional societies / chapters and organizing engineering events -->
+        <div class="input-group">
+            <h3>4.6.1. Professional societies / chapters and organizing engineering events</h3>
+            <label for="availability">Availability & activities of professional societies/chapters (out of 3):</label>
+            <select id="availability">
+                <option value="0">0 - None</option>
+                <option value="1">1 - Limited</option>
+                <option value="2">2 - Moderate</option>
+                <option value="3">3 - Extensive</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="engineeringEvents">Number, quality of engineering events (out of 2):</label>
+            <select id="engineeringEvents">
+                <option value="0">0 - None</option>
+                <option value="1">1 - Limited quality</option>
+                <option value="2">2 - Good quality</option>
+            </select>
+        </div>
+
+        <!-- 4.6.2 Publication of technical magazines, newsletters, etc. -->
+        <div class="input-group">
+            <h3>4.6.2. Publication of technical magazines, newsletters, etc.</h3>
+            <label for="qualityContent">Quality & Relevance of the contents and Print Material (out of 3):</label>
+            <select id="qualityContent">
+                <option value="0">0 - Poor</option>
+                <option value="1">1 - Satisfactory</option>
+                <option value="2">2 - Good</option>
+                <option value="3">3 - Excellent</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="studentParticipation">Participation of Students from the program (out of 2):</label>
+            <select id="studentParticipation">
+                <option value="0">0 - None</option>
+                <option value="1">1 - Limited</option>
+                <option value="2">2 - Active</option>
+            </select>
+        </div>
+
+        <!-- 4.6.3 Participation in inter-institute events -->
+        <div class="input-group">
+            <h3>4.6.3. Participation in inter-institute events by students</h3>
+            <label for="eventsWithinState">Events within the state (out of 2):</label>
+            <select id="eventsWithinState">
+                <option value="0">0 - None</option>
+                <option value="1">1 - Limited</option>
+                <option value="2">2 - Active</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="eventsOutsideState">Events outside the state (out of 3):</label>
+            <select id="eventsOutsideState">
+                <option value="0">0 - None</option>
+                <option value="1">1 - Limited</option>
+                <option value="2">2 - Active</option>
+                <option value="3">3 - Extensive</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="prizesAwards">Prizes/awards received in such events (out of 5):</label>
+            <select id="prizesAwards">
+                <option value="0">0 - None</option>
+                <option value="1">1 - Limited</option>
+                <option value="2">2 - Moderate</option>
+                <option value="3">3 - Significant</option>
+                <option value="5">5 - Outstanding</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <button onclick="calculate()">Calculate</button>
+        </div>
+
+        <div class="result" id="result" style="display: none;">
+            <h3>Result:</h3>
+            <label>Total Marks:</label>
+            <p id="totalMarks"></p>
+        </div>
+
+        <div class="next-button">
+            <button onclick="navigateToNext()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            // Inputs for 4.6.1
+            let availability = parseInt(document.getElementById('availability').value);
+            let engineeringEvents = parseInt(document.getElementById('engineeringEvents').value);
+
+            // Inputs for 4.6.2
+            let qualityContent = parseInt(document.getElementById('qualityContent').value);
+            let studentParticipation = parseInt(document.getElementById('studentParticipation').value);
+
+            // Inputs for 4.6.3
+            let eventsWithinState = parseInt(document.getElementById('eventsWithinState').value);
+            let eventsOutsideState = parseInt(document.getElementById('eventsOutsideState').value);
+            let prizesAwards = parseInt(document.getElementById('prizesAwards').value);
+
+            // Calculate total marks
+            let totalMarks = (availability + engineeringEvents) + (qualityContent + studentParticipation) + (eventsWithinState + eventsOutsideState + prizesAwards);
+
+            // Display result
+            document.getElementById('totalMarks').innerText = totalMarks;
+            document.getElementById('result').style.display = 'block';
+
+            // Save the result for totalmarks.html
+            localStorage.setItem('professionalActivitiesMarks', totalMarks);
+        }
+
+        function navigateToNext() {
+            window.location.href = 'totalmarks.html';
+        }
+    </script>
+</body>
+
+</html>
